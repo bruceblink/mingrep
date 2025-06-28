@@ -1,4 +1,4 @@
-# mingrep
+# minigrep
 
 一个用 Rust 实现的简化版 grep 命令行工具。
 
