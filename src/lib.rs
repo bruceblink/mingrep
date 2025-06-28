@@ -28,6 +28,12 @@ pub fn run(config: Config) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    // 过滤出包含查询字符串的行
+    contents.lines()
+        .filter(|line| line.contains(query))
+        .collect()
+}
 
 #[cfg(test)]
 mod tests {
@@ -52,13 +58,14 @@ mod tests {
         assert!(result.is_err());
     }
 
+    #[test]
     fn one_result() {
         let query = "duct";
         let contents = "\
 Rust:
 safe, fast, productive.
 Pick three.";
-        // assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
 
     }
 }
