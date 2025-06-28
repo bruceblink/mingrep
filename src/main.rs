@@ -19,6 +19,9 @@ struct Config {
 impl Config {
     // 创建一个新的配置实例
     fn new(args: &[String]) -> Config {
+        if args.len() < 3 {
+            panic!("Not enough arguments. Usage: <query> <file_path>");
+        }
         let query = args[1].clone();
         let file_path = args[2].clone();
         Config {
