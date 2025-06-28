@@ -1,11 +1,17 @@
-use std::{env, fs};
+use std::{env, fs, process};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
     // 获取命令的2个参数
-    let config = Config::new(&args);
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        eprintln!("Problem parsing arguments: {err}");
+        process::exit(1);
+    });
 
-    let contents = fs::read_to_string(config.unwrap().file_path)
+    println!("Searching for {}", config.query);
+    println!("In file {}", config.file_path);
+    // 读取文件内容
+    let contents = fs::read_to_string(config.file_path)
     .expect("Should have been able to read the file");
     println!("With text:\n{contents}");
 }
@@ -18,7 +24,7 @@ struct Config {
 
 impl Config {
     // 创建一个新的配置实例
-    fn new(args: &[String]) -> Result<Config, &str> {
+    fn build(args: &[String]) -> Result<Config, &str> {
         if args.len() < 3 {
             return Err("Not enough arguments. Usage: <query> <file_path>");
         }
