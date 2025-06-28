@@ -72,9 +72,10 @@ jobs:
 
       - name: Setup Rust
         if: ${{ hashFiles('**/*.rs') != '' }}
-        uses: actions/setup-rust@v1
+        uses: actions-rs/toolchain@v1
         with:
-          rust-version: stable
+          toolchain: stable
+          override: true
 
       - name: Build with Cargo (if Rust project)
         if: ${{ hashFiles('**/*.rs') != '' }}
