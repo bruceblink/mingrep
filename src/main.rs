@@ -8,9 +8,6 @@ fn main() {
         eprintln!("Problem parsing arguments: {err}");
         process::exit(1);
     });
-
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
     // 读取文件内容
     if let Err(e) = run(config) {
         eprintln!("Application error: {e}");
