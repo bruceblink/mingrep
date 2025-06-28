@@ -18,7 +18,7 @@ cargo run -- <pattern> <filename>
 示例：
 
 ```bash
-cargo run -- fn main.rs
+cargo run -- fn poem.txt
 ```
 
 将会输出 `main.rs` 文件中所有包含 `fn` 的行。
@@ -38,7 +38,7 @@ cargo run -- fn main.rs
 2. 运行示例：
 
    ```bash
-   cargo run -- hello src/main.rs
+   cargo run -- hello poem.txt
    ```
 
 ## 许可证
