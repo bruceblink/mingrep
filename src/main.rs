@@ -5,7 +5,7 @@ fn main() {
     // 获取命令的2个参数
     let config = Config::new(&args);
 
-    let contents = fs::read_to_string(config.file_path)
+    let contents = fs::read_to_string(config.unwrap().file_path)
     .expect("Should have been able to read the file");
     println!("With text:\n{contents}");
 }
@@ -18,15 +18,15 @@ struct Config {
 
 impl Config {
     // 创建一个新的配置实例
-    fn new(args: &[String]) -> Config {
+    fn new(args: &[String]) -> Result<Config, &str> {
         if args.len() < 3 {
-            panic!("Not enough arguments. Usage: <query> <file_path>");
+            return Err("Not enough arguments. Usage: <query> <file_path>");
         }
         let query = args[1].clone();
         let file_path = args[2].clone();
-        Config {
+        Ok(Config {
             query,
             file_path
-        }
+        })
     }
 }
