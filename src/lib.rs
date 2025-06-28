@@ -27,3 +27,38 @@ pub fn run(config: Config) -> Result<(), Box<dyn std::error::Error>> {
     println!("With text:\n{contents}");
     Ok(())
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn build_config() {
+        let args = vec![
+            String::from("minigrep"),
+            String::from("query"),
+            String::from("file.txt"),
+        ];
+        let config = Config::build(&args).unwrap();
+        assert_eq!(config.query, "query");
+        assert_eq!(config.file_path, "file.txt");
+    }
+
+    #[test]
+    fn build_config_not_enough_args() {
+        let args = vec![String::from("minigrep")];
+        let result = Config::build(&args);
+        assert!(result.is_err());
+    }
+
+    fn one_result() {
+        let query = "duct";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.";
+        // assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+
+    }
+}
