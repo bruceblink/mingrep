@@ -1,14 +1,14 @@
 use std::fs;
 
 // 定义配置结构体
-struct Config {
-    query: String,
-    file_path: String,
+pub struct Config {
+    pub query: String,
+    pub file_path: String,
 }
 
 impl Config {
     // 创建一个新的配置实例
-    fn build(args: &[String]) -> Result<Config, &str> {
+    pub fn build(args: &[String]) -> Result<Config, &str> {
         if args.len() < 3 {
             return Err("Not enough arguments. Usage: <query> <file_path>");
         }
@@ -21,7 +21,7 @@ impl Config {
     }
 }
 
-fn run(config: Config) -> Result<(), Box<dyn std::error::Error>> {
+pub fn run(config: Config) -> Result<(), Box<dyn std::error::Error>> {
     // 读取文件内容
     let contents = fs::read_to_string(config.file_path)?;
     println!("With text:\n{contents}");
