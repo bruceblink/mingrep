@@ -11,9 +11,7 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
     // 读取文件内容
-    let contents = fs::read_to_string(config.file_path)
-    .expect("Should have been able to read the file");
-    println!("With text:\n{contents}");
+    run(config);
 }
 
 // 定义配置结构体
@@ -35,4 +33,10 @@ impl Config {
             file_path
         })
     }
+}
+
+fn run(config: Config) {
+    // 读取文件内容
+    let contents = fs::read_to_string(config.file_path).expect("Something went wrong reading the file");
+    println!("With text:\n{contents}");
 }
